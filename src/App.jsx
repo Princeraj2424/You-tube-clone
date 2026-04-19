@@ -1,6 +1,9 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import { Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import Home from './components/Home'
+import Search from './components/Search'
+import PlayingVideo from './components/PlayingVideo'
 const App = () => {
  
   return (
@@ -8,7 +11,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path ='/' exact element = {<Home/>} />
-        <Route path ='/search ' element = {<Search/>} />
+        <Route path ='/search' element = {<Search/>} />
         <Route path = 'video/:id' element = {<PlayingVideo/>}/>   
       </Routes>
     </div>
