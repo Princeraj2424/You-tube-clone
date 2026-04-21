@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../Context/AuthProvider.jsx";
+import { useAuth } from "../Context/AuthContext.jsx";
 
 function ListItems() {
   const { value, setValue } = useAuth();
@@ -16,7 +16,7 @@ function ListItems() {
     "1990s",
     "Telgu cinemas",
     "Live",
-    "Dramedy",
+    "Dramedy",  
     "Debugging",
     "Indian soap operas",
     "Cricket",

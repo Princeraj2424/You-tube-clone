@@ -1,7 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { AuthContext } from "./AuthContext";
 import { fetchData } from "../utils/rapidapi";
-
-export const AuthContext = createContext();
 
 const shuffleArray = (items = []) => {
   const result = [...items];
@@ -17,10 +16,6 @@ export default function AuthProvider({ children }) {
   const [data, setData] = useState([]);
   const [value, setValue] = useState("New");
 
-  useEffect(() => {
-    fetchAlldata(value);
-  }, [value]);
-
   const fetchAlldata = (query) => {
     setLoading(true);
     fetchData(`search/?q=${query}`).then(({ contents }) => {
@@ -29,11 +24,15 @@ export default function AuthProvider({ children }) {
       setLoading(false);
     });
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchAlldata(value);
+  }, [value]);
+
   return (
     <AuthContext.Provider value={{ loading, data, value, setValue }}>
       {children}
     </AuthContext.Provider>
   );
 }
-
-export const useAuth = () => useContext(AuthContext);

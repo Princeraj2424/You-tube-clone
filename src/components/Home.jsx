@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar.jsx";
 import Video from "./Video";
-import { useAuth } from "../Context/AuthProvider.jsx";
+import { useAuth } from "../Context/AuthContext.jsx";
 import ListItems from "./ListItems.jsx";
 function Home() {
   const { data, loading } = useAuth();

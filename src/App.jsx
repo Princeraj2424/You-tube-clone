@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home'
 import Search from './components/Search'
 import PlayingVideo from './components/PlayingVideo'
-import { useAuth } from './Context/AuthProvider'
+import { useAuth } from './Context/AuthContext'
 import Loading from './loader/Loading'
 
 const App = () => {
