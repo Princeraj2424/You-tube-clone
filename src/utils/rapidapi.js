@@ -14,7 +14,6 @@ export const fetchData = async (url)=>{
         const {data} = await axios.get(`${BASE_URL}/${url}`, options);
         return data;
     }catch(error){
-        console.error('Error fetching data:', error);
-        throw error;
+        return null;
     }
     }

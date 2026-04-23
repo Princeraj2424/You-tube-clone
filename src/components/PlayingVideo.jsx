@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AiOutlineLike } from "react-icons/ai";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { abbreviateNumber } from "js-abbreviation-number";
 import { fetchData } from "../utils/rapidapi";
+import SuggestedVideo from "./SuggestedVideo";
 
 const PlayingVideo = () => {
   const [video, setVideo] = useState(null);
@@ -32,7 +33,12 @@ const PlayingVideo = () => {
     });
 
     fetchData(`video/related-contents/?id=${id}`).then((res) => {
-      setRelatedVideos(Array.isArray(res?.contents) ? res.contents : []);
+      const normalizedRelatedVideos = Array.isArray(res?.contents)
+        ? res.contents
+        : Array.isArray(res)
+          ? res
+          : [];
+      setRelatedVideos(normalizedRelatedVideos);
     });
   }, [id]);
 
@@ -105,38 +111,17 @@ const PlayingVideo = () => {
         </div>
 
         <aside className="w-full xl:w-95 xl:shrink-0">
+          <h3 className="mb-2 text-sm font-semibold text-gray-700">Suggested videos</h3>
           <div className="space-y-3">
-            {relatedVideos.map((item) => {
-              if (item?.type !== "video") return null;
-              const itemVideo = item?.video;
+            {relatedVideos.map((item, index) => {
+              const itemVideo = item?.video || item;
+              if (!itemVideo?.videoId) return null;
 
-              return (
-                <Link
-                  key={itemVideo?.videoId}
-                  to={`/video/${itemVideo?.videoId}`}
-                  className="flex gap-3 rounded-xl p-2 transition-colors hover:bg-gray-100"
-                >
-                  <div className="h-20 w-36 overflow-hidden rounded-lg bg-gray-200">
-                    <img
-                      src={itemVideo?.thumbnails?.[0]?.url}
-                      alt={itemVideo?.title || "related thumbnail"}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="line-clamp-2 text-sm font-semibold text-gray-900">
-                      {itemVideo?.title}
-                    </p>
-                    <p className="mt-1 truncate text-xs text-gray-600">
-                      {itemVideo?.author?.title}
-                    </p>
-                    <p className="mt-1 text-xs text-gray-500">
-                      {abbreviateNumber(itemVideo?.stats?.views || 0, 2)} views
-                    </p>
-                  </div>
-                </Link>
-              );
+              return <SuggestedVideo key={itemVideo.videoId || index} video={itemVideo} />;
             })}
+            {relatedVideos.length === 0 && (
+              <p className="text-sm text-gray-500">No suggested videos available for this item.</p>
+            )}
           </div>
         </aside>
       </div>
@@ -145,3 +130,4 @@ const PlayingVideo = () => {
 };
 
 export default PlayingVideo;
+ 

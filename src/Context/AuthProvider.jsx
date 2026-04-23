@@ -18,11 +18,14 @@ export default function AuthProvider({ children }) {
 
   const fetchAlldata = (query) => {
     setLoading(true);
-    fetchData(`search/?q=${query}`).then(({ contents }) => {
-      const nextContents = Array.isArray(contents) ? contents : [];
-      setData(shuffleArray(nextContents));
-      setLoading(false);
-    });
+    fetchData(`search/?q=${query}`)
+      .then((response) => {
+        const nextContents = Array.isArray(response?.contents) ? response.contents : [];
+        setData(shuffleArray(nextContents));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   useEffect(() => {

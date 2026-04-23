@@ -1,6 +1,6 @@
 import React from "react";
 import Sidebar from "./Sidebar.jsx";
-import Video from "./Video";
+import Video from "./video";
 import { useAuth } from "../Context/AuthContext.jsx";
 import ListItems from "./ListItems.jsx";
 function Home() {
@@ -13,9 +13,11 @@ function Home() {
         <ListItems />
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 px-2 py-4 md:p-4">
           {!loading &&
-            data.map((item) => {
-              if (item.type !== "video") return false;
-              return <Video key={item.id} video={item?.video} />;
+            data.map((item, index) => {
+              if (item?.type !== "video") return null;
+              const itemVideo = item?.video;
+              const itemKey = itemVideo?.videoId || item?.video?.videoId || item?.id || index;
+              return <Video key={itemKey} video={itemVideo} />;
             })}
         </div>
       </div>
