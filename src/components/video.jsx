@@ -5,6 +5,8 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { abbreviateNumber } from "js-abbreviation-number";
 
 function Video({ video }) {
+  const channelAvatar = video?.author?.avatar?.[0]?.url || "";
+
   return (
     <article className="group">
       <Link to={`/video/${video?.videoId}`}>
@@ -24,7 +26,7 @@ function Video({ video }) {
               <div className="flex h-10 w-10 rounded-full overflow-hidden border border-gray-200">
                 <img
                   className="h-full w-full rounded-full object-cover"
-                  src={video?.author?.avatar[0].url}
+                  src={channelAvatar}
                   alt={video?.author?.title || "channel avatar"}
                 />
               </div>
@@ -35,7 +37,7 @@ function Video({ video }) {
               </span>
               <span className="flex items-center font-medium mt-1.5 text-[13px] text-gray-600 truncate">
                 {video?.author?.title}
-                {video?.author?.badges[0]?.type === "VERIFIED_CHANNEL" && (
+                {video?.author?.badges?.[0]?.type === "VERIFIED_CHANNEL" && (
                   <BsFillCheckCircleFill className="text-gray-600 ml-1 text-[12px]" />
                 )}
               </span>

@@ -12,7 +12,7 @@ const SearchCard = ({video}) => {
     <article className="group w-full">
       <Link to={`/video/${video?.videoId}`}>
         <div className="flex flex-col gap-3 rounded-xl p-2 transition-colors duration-200 hover:bg-gray-50 sm:flex-row sm:gap-4">
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-100 sm:w-[360px] sm:min-w-[360px]">
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gray-100 sm:w-90 sm:min-w-90">
             <img
               className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
               src={thumbnailUrl}
@@ -41,8 +41,8 @@ const SearchCard = ({video}) => {
                 />
               </div>
               <span className="flex min-w-0 items-center truncate">
-                {video?.author?.title}
-                {video?.author?.badges[0]?.type === "VERIFIED_CHANNEL" && (
+                {video?.author?.title || "Unknown channel"}
+                {video?.author?.badges?.[0]?.type === "VERIFIED_CHANNEL" && (
                   <BsFillCheckCircleFill className="ml-1 text-[12px] text-gray-600" />
                 )}
               </span>

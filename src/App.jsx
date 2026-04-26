@@ -1,22 +1,29 @@
 import React from 'react'
 import Navbar from './components/Navbar'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './components/Home'
 import Search from './components/Search'
+import History from './components/History'
 import PlayingVideo from './components/PlayingVideo'
+import SignIn from './components/SignIn'
+import ProtectedRoute from './components/ProtectedRoute'
 import { useAuth } from './Context/AuthContext'
 import Loading from './loader/Loading'
 
 const App = () => {
 const { loading } = useAuth();
+const location = useLocation();
+const isSignInPage = location.pathname === '/signin';
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       {loading && <Loading/>}
-      <Navbar />
+      {!isSignInPage && <Navbar />}
       <Routes>
-        <Route path ='/' exact element = {<Home/>} />
+        <Route path='/' element={<Home />} />
         <Route path ='/search' element = {<Search/>} />
-        <Route path = 'video/:id' element = {<PlayingVideo/>}/>   
+        <Route path='/history' element={<ProtectedRoute><History /></ProtectedRoute>} />
+        <Route path='/video/:id' element={<PlayingVideo />} />
+        <Route path='/signin' element={<SignIn />} />
       </Routes>
     </div>
   )

@@ -8,6 +8,7 @@
 }
 
 body {
+	margin: 0;
 	font-family: "Manrope", sans-serif;
 	background: linear-gradient(180deg, #ffffff 0%, #fbfbfc 100%);
 	color: var(--text-primary);
