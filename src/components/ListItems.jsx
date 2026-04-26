@@ -16,7 +16,7 @@ function ListItems() {
     "1990s",
     "Telgu cinemas",
     "Live",
-    "Dramedy",  
+    "Dramedy",
     "Debugging",
     "Indian soap operas",
     "Cricket",
@@ -45,7 +45,6 @@ function ListItems() {
           );
         })}
       </div>
-
     </div>
   );
 }
